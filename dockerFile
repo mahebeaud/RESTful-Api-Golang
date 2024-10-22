@@ -1,0 +1,16 @@
+FROM golang:1.19
+
+WORKDIR /home/core
+
+RUN apt-get update && apt-get install -y \
+    git \
+    && rm -rf /var/lib/apt/lists/*
+
+COPY . /home/core/
+
+# Using Makefile
+RUN make build
+
+EXPOSE 8080
+
+CMD ["./main"]
